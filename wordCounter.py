@@ -9,9 +9,6 @@ parser.add_argument("-w", metavar = "--word", dest = "word_arg", help = "return 
 parser.add_argument("-l", metavar = "--line", dest = "line_arg", help = "return the number of lines")
 args = parser.parse_args()
 #print(args.char_arg)
- 
-fileName =  'wordtest.txt'
-
 
 
 def Char_Count(fileName):
@@ -66,10 +63,13 @@ def Line_Count(fileName):
     except IOError:
         print("文件打开失败！")
 
-charsCount = Char_Count(fileName)
-wordsCount = Word_Count(fileName)
-linesCount = Line_Count(fileName)
+if args.char_arg:
+    charsCount = Char_Count(args.char_arg)
+    print("文本的字符数目：%s" % (charsCount))
+if args.word_arg:
+    wordsCount = Word_Count(args.word_arg)
+    print("文本的单词数目：%s" % (wordsCount))
+if args.line_arg:
+    linesCount = Line_Count(args.line_arg)
+    print("文本的行数：%s" % (linesCount))
 
-print(linesCount)
-print(charsCount)
-print(wordsCount)
