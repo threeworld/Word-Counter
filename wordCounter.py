@@ -32,7 +32,7 @@ def Char_Count(fileName):
     except IOError:
         print("打开文件失败！请检查路径是否正确")
 
-def Word_Count(fileName):
+def WordCount(fileName):
     """
     统计单词数
     :param:
@@ -49,7 +49,7 @@ def Word_Count(fileName):
     except IOError:
         print("文件打开失败！请检查路径是否正确")
 
-def Line_Count(fileName):
+def LineCount(fileName):
     """
     统计行数
     :param:
@@ -65,7 +65,7 @@ def Line_Count(fileName):
     except IOError:
         print("文件打开失败！请检查路径是否正确")
 
-def Recurve_Dir(dirPath):
+def RecurveDir(dirPath):
     """
     递归查找符合条件的文件
     :param: 
@@ -81,23 +81,23 @@ def Recurve_Dir(dirPath):
             #print(fileList)
         elif os.path.isdir(mPath):
             #print(mPath)    
-            fileList += Recurve_Dir(mPath)
+            fileList += RecurveDir(mPath)
         else:
             pass
     return fileList
 
-def Recurve_Dir_Process(Path):
+def RecurveDirProcess(Path):
     """
     递归处理文件主函数
     :param
         Path: 输入的目录路径
     :return: None
     """
-    fileList =  Recurve_Dir(Path)
+    fileList =  RecurveDir(Path)
     for file in fileList:
         #print(file)
-        wordsCount = Word_Count(file)
-        linesCount = Line_Count(file)
+        wordsCount = WordCount(file)
+        linesCount = LineCount(file)
         charsCount = Char_Count(file)
         print("%s 文件信息：\n文本的字符数目：%s\n文本的单词数目：%s\n文本的行数：%s\n" % (file,charsCount,wordsCount,linesCount))
 
@@ -111,7 +111,7 @@ def CCBCountMain(fileName):
     #支持的后缀
     suffixList = ['.py', '.c', '.java', '.js','.cpp']
     if os.path.isdir(fileName):
-        fileList = Recurve_Dir(fileName)
+        fileList = RecurveDir(fileName)
         for file in fileList:
             suffix = os.path.splitext(file)[1]
             if suffix in suffixList: 
@@ -162,12 +162,12 @@ if args.char_arg:
     charsCount = Char_Count(args.char_arg)
     print("文本的字符数目：%s" % (charsCount))
 if args.word_arg:
-    wordsCount = Word_Count(args.word_arg)
+    wordsCount = WordCount(args.word_arg)
     print("文本的单词数目：%s" % (wordsCount))
 if args.line_arg:
-    linesCount = Line_Count(args.line_arg)
+    linesCount = LineCount(args.line_arg)
     print("文本的行数：%s" % (linesCount))
 if args.recur_arg:
-    Recurve_Dir_Process(args.recur_arg)
+    RecurveDirProcess(args.recur_arg)
 if args.ccb_arg:
     CCBCountMain(args.ccb_arg)
