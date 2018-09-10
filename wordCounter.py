@@ -6,13 +6,31 @@ import glob
 import fnmatch
 import argparse
 
-parser = argparse.ArgumentParser(description="this is wordCounter")
-parser.add_argument("-c", metavar = "--char", dest = "char_arg", help = "return the number of characters" )
-parser.add_argument("-w", metavar = "--word", dest = "word_arg", help = "return the number of words")
-parser.add_argument("-l", metavar = "--line", dest = "line_arg", help = "return the number of lines")
-parser.add_argument("-s", metavar = "--recurve", dest = "recur_arg", help = "Recursive file information under the directory")
-parser.add_argument("-a", metavar = "--CCBcount", dest = "ccb_arg", help = "Counts the number of lines of code, comment lines, blank lines in the file  or files in the directory")
-args = parser.parse_args()
+def main():
+    """
+    主函数
+    """
+    parser = argparse.ArgumentParser(description="this is wordCounter")
+    parser.add_argument("-c", metavar = "--char", dest = "char_arg", help = "return the number of characters" )
+    parser.add_argument("-w", metavar = "--word", dest = "word_arg", help = "return the number of words")
+    parser.add_argument("-l", metavar = "--line", dest = "line_arg", help = "return the number of lines")
+    parser.add_argument("-s", metavar = "--recurve", dest = "recur_arg", help = "Recursive file information under the directory")
+    parser.add_argument("-a", metavar = "--CCBcount", dest = "ccb_arg", help = "Counts the number of lines of code, comment lines, blank lines in the file  or files in the directory")
+    args = parser.parse_args()
+    if args.char_arg:
+        charsCount = Char_Count(args.char_arg)
+        print("文本的字符数目：%s" % (charsCount))
+    if args.word_arg:
+        wordsCount = WordCount(args.word_arg)
+        print("文本的单词数目：%s" % (wordsCount))
+    if args.line_arg:
+        linesCount = LineCount(args.line_arg)
+        print("文本的行数：%s" % (linesCount))
+    if args.recur_arg:
+        RecurveDirProcess(args.recur_arg)
+    if args.ccb_arg:
+        CCBCountMain(args.ccb_arg)
+
 def Char_Count(fileName):
     """
     统计字符数,不包括空白字符，包括空格、制表符、换页符等
@@ -157,17 +175,6 @@ def CodeCommentBlankCount(fileName):
         print("%s 文件信息：\n文本的代码行数：%s\n文本的空白行数：%s\n文本的注释行数：%s\n" % (fileName,codeLines,blankLines,commentLines))
     except IOError:
         print("文件打开失败！请检查文件路径是否正确")
-    
-if args.char_arg:
-    charsCount = Char_Count(args.char_arg)
-    print("文本的字符数目：%s" % (charsCount))
-if args.word_arg:
-    wordsCount = WordCount(args.word_arg)
-    print("文本的单词数目：%s" % (wordsCount))
-if args.line_arg:
-    linesCount = LineCount(args.line_arg)
-    print("文本的行数：%s" % (linesCount))
-if args.recur_arg:
-    RecurveDirProcess(args.recur_arg)
-if args.ccb_arg:
-    CCBCountMain(args.ccb_arg)
+
+if __name__ == '__main__':
+    main()
