@@ -18,7 +18,7 @@ def main():
     parser.add_argument("-a", metavar = "--CCBcount", dest = "ccb_arg", help = "Counts the number of lines of code, comment lines, blank lines in the file  or files in the directory")
     args = parser.parse_args()
     if args.char_arg:
-        charsCount = Char_Count(args.char_arg)
+        charsCount = CharCount(args.char_arg)
         print("文本的字符数目：%s" % (charsCount))
     if args.word_arg:
         wordsCount = WordCount(args.word_arg)
@@ -27,11 +27,11 @@ def main():
         linesCount = LineCount(args.line_arg)
         print("文本的行数：%s" % (linesCount))
     if args.recur_arg:
-        RecurveDirProcess(args.recur_arg)
+        RecurveDirMain(args.recur_arg)
     if args.ccb_arg:
         CCBCountMain(args.ccb_arg)
 
-def Char_Count(fileName):
+def CharCount(fileName):
     """
     统计字符数,不包括空白字符，包括空格、制表符、换页符等
     :param: 
@@ -104,7 +104,7 @@ def RecurveDir(dirPath):
             pass
     return fileList
 
-def RecurveDirProcess(Path):
+def RecurveDirMain(Path):
     """
     递归处理文件主函数
     :param
@@ -116,7 +116,7 @@ def RecurveDirProcess(Path):
         #print(file)
         wordsCount = WordCount(file)
         linesCount = LineCount(file)
-        charsCount = Char_Count(file)
+        charsCount = CharCount(file)
         print("%s 文件信息：\n文本的字符数目：%s\n文本的单词数目：%s\n文本的行数：%s\n" % (file,charsCount,wordsCount,linesCount))
 
 def CCBCountMain(fileName):
@@ -135,7 +135,7 @@ def CCBCountMain(fileName):
             if suffix in suffixList: 
                 CodeCommentBlankCount(file)
     else:
-        CodeCommentBlankCount(file)	
+        CodeCommentBlankCount(fileName)	
 
 def CodeCommentBlankCount(fileName):
     """
