@@ -10,6 +10,9 @@ def main():
     """
     主函数
     """
+    print('\ \ /\ / / __|')
+    print(' \ V  V / (__')
+    print('  \_/\_/ \___|')
     parser = argparse.ArgumentParser(description="this is wordCounter")
     parser.add_argument("-c", metavar = "--char", dest = "char_arg", help = "return the number of characters" )
     parser.add_argument("-w", metavar = "--word", dest = "word_arg", help = "return the number of words")
